@@ -1,0 +1,27 @@
+<!-- callback.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OAuth Redirect</title>
+</head>
+<body>
+  <h3>Logging in...</h3>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+
+    console.log('OAuth code received:', code);
+
+    // Send the code back to the opener (your extension)
+    if (window.opener && code) {
+
+      console.log('Sending code to opener:', code);
+      window.opener.postMessage({ type: 'AUTH_CODE', code, state }, '*');
+    }
+
+    // Auto-close the window after 500ms
+    setTimeout(() => window.close(), 50000);
+  </script>
+</body>
+</html>
