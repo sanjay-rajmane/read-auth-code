@@ -82,7 +82,8 @@ app.get("/connections", (req, res) => {
 
 // DELETE: Set connection status to "pending"
 app.delete("/connections/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id; // UUID as string
+
   const connection = connections.find((c) => c.id === id);
 
   if (!connection) {
@@ -95,7 +96,8 @@ app.delete("/connections/:id", (req, res) => {
 
 // POST: Set connection status to "available"
 app.post("/connections/:id", (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id; // UUID as string
+
   const connection = connections.find((c) => c.id === id);
 
   if (!connection) {
