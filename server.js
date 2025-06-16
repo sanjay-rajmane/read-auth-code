@@ -32,7 +32,7 @@ const connections = [
     created_at: "2024-05-30T12:34:56.123456Z",
     server_name: "org1__slack",
     mcp_server_id: "0245d7bd-2a17-4b99-b2c1-578bf9eef9c3",
-    status: "connected",
+    status: "pending",
   },
   {
     id: "b73e3b62-4f9e-4d28-a0c1-17b395fed829",
@@ -59,14 +59,14 @@ app.get("/servers", (req, res) => {
       id: "0245d7bd-2a17-4b99-b2c1-578bf9eef9c3",
       name: "Slack Workspace Foo",
       provider: "slack",
-      status: "connected", // one of: available | pending | connected
+      status: "pending", // one of: available | pending | connected
       connection_id: "9c8c159a-7ad2-4c70-a027-0efd4fb56e93",
     },
     {
       id: "193aaec1-a2e2-4976-80a0-29ea812f05a7",
       name: "GitHub Org Bar",
       provider: "github",
-      status: "available",
+      status: "pending",
       connection_id: null, // null when not yet linked
     },
   ]);
@@ -104,8 +104,8 @@ app.post("/connections/:id", (req, res) => {
     return res.status(404).json({ message: "Connection not found" });
   }
 
-  connection.status = "available";
-  res.json({ message: "Status updated to available", connection });
+  connection.status = "connected";
+  res.json({ message: "Status updated to connected", connection });
 });
 
 app.listen(PORT, () => {
